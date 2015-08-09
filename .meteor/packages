@@ -8,14 +8,11 @@ meteor-platform
 autopublish
 insecure
 fourseven:scss
-froatsnook:alt
-grigio:babel
 johnantoni:meteor-normalize
-meteorhacks:npm
 promise
-react-meteor-data
-reactrouter:react-router
 skinnygeek1010:flux-helpers
 
 
-npm-container
+reactrouter:react-router
+grigio:babel
+froatsnook:alt
