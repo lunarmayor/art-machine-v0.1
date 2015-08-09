@@ -1,2 +1,2 @@
 ###Art Machine
-collaborative art platfrom
+collaborative art platform
