@@ -1,7 +1,7 @@
 .editor {
   padding-top:30px;
 }
-.editor canvas, .editor .canvasPainter {
+.editor .editor-canvasContainer, .editor .canvasPainter {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);

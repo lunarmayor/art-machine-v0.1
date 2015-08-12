@@ -27,6 +27,7 @@ class Editor extends React.Component {
 
   startDrawing(e) {
     this.drawing = true;
+    console.log('as')
     this.setXY(e)
   }
 
@@ -51,9 +52,17 @@ class Editor extends React.Component {
   }
 
   setXY(e) {
-    let x = e.clientX - this.canvas.offsetLeft + 160;
-    let y = e.clientY - this.canvas.offsetTop
+    let node = React.findDOMNode(this.refs.canvasContainer)
+    let x = e.clientX - node.offsetLeft + 160;
+    let y = e.clientY - node.offsetTop;
     [this.currX, this.currY] = [x, y]
+  }
+
+  clearCanvas() {
+    this.setState({ new: true })
+  }
+
+  saveCanvas() {
   }
 
   render() {
@@ -62,14 +71,18 @@ class Editor extends React.Component {
         {this.state.new ?
           <CanvasPainter onPaintSelection={this.fillCanvas.bind(this)}/>
         : null}
-        <canvas
-          width='320'
-          height='320'
-          ref='canvas'
-          onMouseDown={this.startDrawing.bind(this)}
-          onMouseUp={this.stopDrawing.bind(this)}
-          onMouseLeave={this.stopDrawing.bind(this)}
-          onMouseMove={this.draw.bind(this)}/>
+        <div ref='canvasContainer' className='editor-canvasContainer'>
+          <canvas
+            width='320'
+            height='320'
+            ref='canvas'
+            onMouseDown={this.startDrawing.bind(this)}
+            onMouseUp={this.stopDrawing.bind(this)}
+            onMouseLeave={this.stopDrawing.bind(this)}
+            onMouseMove={this.draw.bind(this)}/>
+          <button onClick={this.clearCanvas.bind(this)}>clear</button>
+          <button onClick={this.saveCanvas.bind(this)}>save</button>
+        </div>
       </div>
     )
   }
