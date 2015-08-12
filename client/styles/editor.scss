@@ -1,0 +1,44 @@
+.editor {
+  padding-top:30px;
+}
+.editor canvas, .editor .canvasPainter {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 320px;
+  height: 320px;
+}
+.canvasPainter {
+  z-index: 2;
+}
+.editor canvas {
+  z-index: 1;
+}
+
+.canvasPainter {
+  background: rgb(119, 117, 155);
+}
+
+.paintBlock {
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+  height: 25%;
+}
+
+.paintBlock-hue {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 1s;
+  transform: scale(1)
+}
+.paintBlock-hue:hover {
+  transform: scale(1.2)
+}
+
+
+

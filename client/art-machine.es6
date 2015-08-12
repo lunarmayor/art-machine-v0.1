@@ -1,6 +1,6 @@
 const { Router, Route, Link } = ReactRouter;
 const { history } = ReactRouter.lib.BrowserHistory;
-window.Link = Link
+this.Link = Link
 
 Meteor.startup(() => {
   React.render((
