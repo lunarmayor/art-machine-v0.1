@@ -1,19 +1,19 @@
-class ArtStore {
+class ArtWorkStore {
   constructor() {
-    bindListeners({
+    this.bindListeners({
       onArtWorksChanged: CollectionActions.artWorksChanged,
-      onCreate: ArtWorksActions.create
+      onCreate: ArtWorkActions.create
     });
 
     this.state = {
-      artWorks: ArtWorks.findAll(),
+      artWorks: ArtWork.findAll(),
     }
 
     Meteor.subscribe('artWorks');
   }
 
   onArtWorksChanged() {
-    this.setState({artWorks: ArtWorks.findAll})
+    this.setState({artWorks: ArtWork.findAll()})
   }
 
   onCreate(canvasData) {
@@ -22,8 +22,10 @@ class ArtStore {
       user: {
         _id:  Meteor.userId(),
         name: Meteor.user().profile.name,
-        av_url: Meter.user().services.twitter.profile_image_url,
+        av_url: Meteor.user().services.twitter.profile_image_url,
       }
     })
   }
 }
+
+this.ArtWorkStore = alt.createStore(ArtWorkStore, 'ArtWorkStore')

@@ -63,6 +63,8 @@ class Editor extends React.Component {
   }
 
   saveCanvas() {
+    console.log(this.canvas.toDataURL())
+    ArtWorkActions.create(this.canvas.toDataURL())
   }
 
   render() {

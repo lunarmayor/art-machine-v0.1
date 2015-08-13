@@ -4,4 +4,4 @@ class ArtWorkActions {
   }
 }
 
-this.ArtWorksActions = alt.createActions(ArtWorkActions)
+this.ArtWorkActions = alt.createActions(ArtWorkActions)
