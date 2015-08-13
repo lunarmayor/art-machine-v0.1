@@ -12,3 +12,18 @@
     fill: white;
   }
 }
+
+.profileLink {
+  position: absolute;
+  right: 62px;
+  top: 12px;
+  min-width: 30px;
+  min-height: 30px;
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(#fff, 0.2)
+  }
+}

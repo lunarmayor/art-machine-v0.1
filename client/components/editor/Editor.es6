@@ -80,8 +80,10 @@ class Editor extends React.Component {
             onMouseUp={this.stopDrawing.bind(this)}
             onMouseLeave={this.stopDrawing.bind(this)}
             onMouseMove={this.draw.bind(this)}/>
-          <button onClick={this.clearCanvas.bind(this)}>clear</button>
-          <button onClick={this.saveCanvas.bind(this)}>save</button>
+          {!this.state.new ?
+            [<button onClick={this.clearCanvas.bind(this)}>clear</button>,
+            <button onClick={this.saveCanvas.bind(this)}>save</button>]
+          : null}
         </div>
       </div>
     )
