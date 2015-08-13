@@ -27,7 +27,6 @@ class Editor extends React.Component {
 
   startDrawing(e) {
     this.drawing = true;
-    console.log('as')
     this.setXY(e)
   }
 
@@ -63,7 +62,6 @@ class Editor extends React.Component {
   }
 
   saveCanvas() {
-    console.log(this.canvas.toDataURL())
     ArtWorkActions.create(this.canvas.toDataURL())
   }
 
