@@ -2,7 +2,9 @@ class App extends React.Component {
   render() {
     return (
       <div className='app'>
-        <TopNav/>
+        {Meteor.userId() ?
+          <TopNav/>
+        : null }
         <main>
           {this.props.children}
         </main>

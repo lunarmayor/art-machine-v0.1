@@ -65,6 +65,15 @@ class Editor extends React.Component {
     ArtWorkActions.create(this.canvas.toDataURL())
   }
 
+  downloadCanvas() {
+    a = document.createElement('a');
+    a.href = this.canvas.toDataURL()
+    a.download = "artwork.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   render() {
     return (
       <div className="editor">
@@ -81,8 +90,11 @@ class Editor extends React.Component {
             onMouseLeave={this.stopDrawing.bind(this)}
             onMouseMove={this.draw.bind(this)}/>
           {!this.state.new ?
-            [<button onClick={this.clearCanvas.bind(this)}>clear</button>,
-            <button onClick={this.saveCanvas.bind(this)}>save</button>]
+            [
+              <button onClick={this.clearCanvas.bind(this)}>clear</button>,
+              <button onClick={this.saveCanvas.bind(this)}>publish</button>,
+              <button onClick={this.downloadCanvas.bind(this)}>download</button>
+            ]
           : null}
         </div>
       </div>
