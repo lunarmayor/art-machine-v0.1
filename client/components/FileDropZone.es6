@@ -10,6 +10,7 @@ class FileDropZone extends React.Component {
     e.preventDefault();
     let data = e.dataTransfer;
     let file = data.files[0];
+    this.setState({ isActive: false })
 
     this.props.dropHandler(file);
   }
@@ -37,8 +38,6 @@ class FileDropZone extends React.Component {
   }
 
   render() {
-
-    console.log('asdf')
     return (
       <div
         className={this.classes()}

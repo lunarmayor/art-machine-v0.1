@@ -30,6 +30,7 @@ class ArtWorkItem extends React.Component {
         </h5>
         <canvas ref='canvas' width='320' height='320' className='artWork-canvas'/>
         <footer className='artWork-footer'>
+          <RemixButton artWork={this.props.artWork}/>
         </footer>
       </div>
     )
