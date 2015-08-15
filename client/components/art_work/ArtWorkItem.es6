@@ -12,8 +12,6 @@ class ArtWorkItem extends React.Component {
       this.context.drawImage(img, 0, 0)
 
     img.src = this.props.artWork.canvasData
-    window.img = img
-    window.ctx = this.context
   }
 
   render() {

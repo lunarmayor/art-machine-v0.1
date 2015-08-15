@@ -74,6 +74,26 @@ class Editor extends React.Component {
     document.body.removeChild(a);
   }
 
+  handleImage(file) {
+    if (!file.type.match('image.*')) {
+      return false
+    }
+    let reader = new FileReader()
+    reader.onload = (e) => {
+      let img = new Image()
+      img.onload = () => {
+        this.context.drawImage(img, 0, 0, 320, 320)
+      }
+      img.src = e.target.result
+    }
+
+
+
+
+
+    reader.readAsDataURL(file)
+  }
+
   render() {
     return (
       <div className="editor">
@@ -81,14 +101,19 @@ class Editor extends React.Component {
           <CanvasPainter onPaintSelection={this.fillCanvas.bind(this)}/>
         : null}
         <div ref='canvasContainer' className='editor-canvasContainer'>
-          <canvas
-            width='320'
+          <FileDropZone
+            dropHandler={this.handleImage.bind(this)}
             height='320'
-            ref='canvas'
-            onMouseDown={this.startDrawing.bind(this)}
-            onMouseUp={this.stopDrawing.bind(this)}
-            onMouseLeave={this.stopDrawing.bind(this)}
-            onMouseMove={this.draw.bind(this)}/>
+            width='320'>
+            <canvas
+              width='320'
+              height='320'
+              ref='canvas'
+              onMouseDown={this.startDrawing.bind(this)}
+              onMouseUp={this.stopDrawing.bind(this)}
+              onMouseLeave={this.stopDrawing.bind(this)}
+              onMouseMove={this.draw.bind(this)}/>
+          </FileDropZone>
           {!this.state.new ?
             [
               <button onClick={this.clearCanvas.bind(this)}>clear</button>,
