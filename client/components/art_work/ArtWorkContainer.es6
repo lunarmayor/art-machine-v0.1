@@ -1,7 +1,7 @@
 class ArtWorkContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ArtWorkStore.getState().state
+    this.state = ArtWorkStore.getState()
   }
 
   componentDidMount() {

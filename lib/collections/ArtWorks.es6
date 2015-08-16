@@ -12,6 +12,6 @@ ArtWork = {
   },
 
   findAll() {
-    return ArtWorks.find({}).fetch()
+    return ArtWorks.find({}, { sort: { created_at: -1 }}).fetch()
   }
 }

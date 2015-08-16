@@ -5,9 +5,7 @@ class ArtWorkStore {
       onCreate: ArtWorkActions.create
     });
 
-    this.state = {
-      artWorks: ArtWork.findAll(),
-    }
+    this.artWorks = ArtWork.findAll();
 
     Meteor.subscribe('artWorks');
   }
@@ -19,6 +17,7 @@ class ArtWorkStore {
   onCreate(canvasData) {
     ArtWork.create({
       canvasData: canvasData,
+      created_at: new Date(),
       user: {
         _id:  Meteor.userId(),
         name: Meteor.user().profile.name,
