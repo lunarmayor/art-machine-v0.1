@@ -1,7 +1,7 @@
 class BackgroundPicker extends React.Component {
   handleImage(file) {
     this.props.artBoard.handleImage(file);
-    EditorActions.changeState('edit')
+    EditorActions.changeStage('edit')
   }
 
   render() {
