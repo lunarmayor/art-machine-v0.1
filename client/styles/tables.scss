@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+  height: 100px;
+}
+
+td {
+  text-align: center;
+  cursor: pointer
+}
+
+td:hover {
+  background: rgba(#fff, 0.2)
+}
+
