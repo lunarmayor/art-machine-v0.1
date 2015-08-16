@@ -14,7 +14,8 @@ class Editor extends React.Component {
 
   setupCanvas() {
     this.canvas = React.findDOMNode(this.refs.canvas)
-    this.props.artBoard.setArtBoard(this.canvas)
+    this.backCanvas = React.findDOMNode(this.refs.preview)
+    this.props.artBoard.setArtBoard(this.canvas, this.backCanvas)
   }
 
   handleImage(file) {
@@ -35,6 +36,7 @@ class Editor extends React.Component {
               height='320'
               width='320'>
               <canvas width='320' height='320' ref='canvas'/>
+              <canvas width='320' height='320' className='previewCanvas' ref='preview'/>
             </FileDropZone>
             {!(this.props.stage == 'new') ?
               <ActionButtons artBoard={this.props.artBoard}/>
