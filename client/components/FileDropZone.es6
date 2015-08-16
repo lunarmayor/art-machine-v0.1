@@ -43,10 +43,10 @@ class FileDropZone extends React.Component {
         className={this.classes()}
         width={this.props.width}
         height={this.props.height}
-        onDragOver={this._onDragOver.bind(this)}
-        onDragEnter={this._onDragEnter.bind(this)}
-        onDragLeave={this._onDragLeave.bind(this)}
-        onDrop={this._onDrop.bind(this)}>
+        onDragOverCapture={this._onDragOver.bind(this)}
+        onDragEnterCapture={this._onDragEnter.bind(this)}
+        onDragLeaveCapture={this._onDragLeave.bind(this)}
+        onDropCapture={this._onDrop.bind(this)}>
         {this.props.children}
       </div>
     )

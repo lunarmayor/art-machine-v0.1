@@ -22,7 +22,7 @@ class CanvasPainter extends React.Component {
     return (
       <div className='canvasPainter'>
         {paintColors.map((color, i) => {
-          return (<PaintBlock {...this.props} color={color}/>)
+          return (<PaintBlock {...this.props} key={color + Math.random()} color={color}/>)
         }, this)}
       </div>
     )

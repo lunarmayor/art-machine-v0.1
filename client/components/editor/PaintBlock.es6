@@ -1,6 +1,7 @@
 class PaintBlock extends React.Component {
   paintCanvas() {
-    this.props.onPaintSelection(this.props.color)
+    this.props.artBoard.fill(this.props.color)
+    EditorActions.changeStage('edit')
   }
 
   render() {

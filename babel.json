@@ -1,3 +1,4 @@
 {
-  "extensions": ["es6"]
+  "extensions": ["es6"],
+  "stage": "0"
 }

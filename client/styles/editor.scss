@@ -1,21 +1,37 @@
 .editor {
-  padding-top: 50px;
+  height: 100%;
 }
-.editor .editor-canvasContainer, .editor .canvasPainter {
+.editor .editor-canvasContainer {
   position: absolute;
+  margin-top: 50px;
   left: 50%;
   transform: translate(-50%, 0);
   width: 320px;
   height: 320px;
+  z-index:1
 }
-.canvasPainter {
-  z-index: 2;
+
+.editor-painterContainer {
+  z-index:2 !important
 }
-.editor canvas {
-  z-index: 1;
+
+.editor aside {
+  float: right;
+  width: 30%;
+  height: 100%;
+  background: rgba(255,255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.2)
+}
+
+.editor section {
+  position: relative;
+  float: left;
+  width: 68%;
 }
 
 .canvasPainter {
+  width: 320px;
+  height: 320px;
   background: rgb(119, 117, 155);
 }
 
