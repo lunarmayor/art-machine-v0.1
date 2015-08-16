@@ -19,6 +19,7 @@ class Editor extends React.Component {
 
   handleImage(file) {
     this.props.artBoard.handleImage(file);
+    EditorActions.changeStage('edit')
   }
 
   render() {
@@ -26,15 +27,7 @@ class Editor extends React.Component {
       <div className="editor">
         <section>
           {this.props.stage == 'new' ?
-            <div className='editor-canvasContainer editor-painterContainer'>
-              <FileDropZone
-                dropHandler={this.handleImage.bind(this)}
-                width='320'
-                height='320'>
-                <CanvasPainter artBoard={this.props.artBoard}
-                  onImageSelection={this.handleImage.bind(this)}/>
-              </FileDropZone>
-            </div>
+            <BackgroundPicker artBoard={this.props.artBoard}/>
           : null}
           <div ref='canvasContainer' className='editor-canvasContainer'>
             <FileDropZone
@@ -49,6 +42,11 @@ class Editor extends React.Component {
           </div>
         </section>
         <aside>
+          {this.props.stage == 'new' ?
+            <EditorInfo/>
+          :
+            <EditorTools artBoard={this.props.artBoard}/>
+          }
         </aside>
       </div>
     )
