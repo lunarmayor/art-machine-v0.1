@@ -12,6 +12,10 @@ class Editor extends React.Component {
     this.setupCanvas()
   }
 
+  componentWillUnmount() {
+    this.props.artBoard.teardown()
+  }
+
   setupCanvas() {
     this.canvas = React.findDOMNode(this.refs.canvas)
     this.backCanvas = React.findDOMNode(this.refs.preview)

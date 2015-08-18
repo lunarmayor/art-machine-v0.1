@@ -21,8 +21,8 @@ class ArtBoard {
     this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mouseleave', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mousemove', this.draw.bind(this))
-    window.removeEventListener('keydown', this.restoreHistory.bind(this))
-    window.addEventListener('keydown', this.restoreHistory.bind(this))
+    this.onKeyDown = this.restoreHistory.bind(this)
+    window.addEventListener('keydown', this.onKeyDown)
 
   }
 
@@ -165,6 +165,10 @@ class ArtBoard {
       this.history = []
       this.handleDataURL(this.baseImage)
     }
+  }
+
+  teardown() {
+    window.removeEventListener('keydown', this.onKeyDown)
   }
 
   handleDataURL(dataUrl) {
