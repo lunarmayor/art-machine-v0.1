@@ -1,6 +1,16 @@
 let filters = [
-  { name: 'lavaworld', color: '#A4120F' },
-  { name: 'new' },
+  { name: 'lavaworld', color: '#00B9F2' },
+  { name: 'aquafier', color: '#008FD5' },
+  { name: 'darkGravity', color: '#034DA2' },
+  { name: 'lightGravity', color: '#662E91' },
+  { name: 'new', color: '#942977' },
+  { name: 'newnew', color: '#BF245E' },
+  { name: 'slicer', color: '#EC1B30' },
+  { name: 'random', color: '#F36523' },
+  { name: 'newnews', color: '#FFC20F' },
+  { name: 'crusher', color: '#FFEC01' },
+  { name: 'blueGreenMeltDown', color: '#CADB2A' },
+  { name: 'splitFace', color: '#eee' },
 ]
 
 class GlitchFilters extends React.Component {
@@ -14,10 +24,12 @@ class GlitchFilters extends React.Component {
     })
 
     return (
-      <div className="">
-        <ul>
-          { glitchFilters }
-        </ul>
+      <div>
+        <div className="">
+          <ul>
+            { glitchFilters }
+          </ul>
+        </div>
       </div>
     )
   }

@@ -1,14 +1,34 @@
 table {
   width: 100%;
-  height: 100px;
+  height: 52px;
+  table-layout: fixed;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.27);
+}
+tbody {
+  //background: rgba(72, 69, 118, 0.26)
+  background: rgba(59, 53, 158, 0.31)
 }
 
 td {
   text-align: center;
-  cursor: pointer
+  cursor: pointer;
+  transition: background 0.4s ease-out;
+
+  svg {
+    transition: fill 0.5s;
+    fill: rgba(255, 255, 255, 0.36);
+    width: 45px;
+  }
+}
+
+td.isActive {
+  background: rgba(255, 255, 255, 0.05);
+  svg {
+    fill: rgba(34,3,56,0.85);
+    fill: rgb(217, 215, 218);
+  }
 }
 
 td:hover {
-  background: rgba(#fff, 0.2)
 }
 

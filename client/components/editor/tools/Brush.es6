@@ -22,11 +22,13 @@ class Brush extends React.Component {
 
   render() {
     return (
-      <div className="toolOptions">
-        <h6>Brush Size</h6>
-        <input onChange={this.updateSize.bind(this)} type='number' value={this.state.size}/>
-        <h6>Brush Color</h6>
-        <input onChange={this.updateColor.bind(this)} type='color' value={this.state.color}/>
+      <div>
+        <div className="toolOptions">
+          <h6>Brush Size</h6>
+          <input onChange={this.updateSize.bind(this)} type='number' value={this.state.size}/>
+          <h6>Brush Color</h6>
+          <input onChange={this.updateColor.bind(this)} type='color' value={this.state.color}/>
+        </div>
       </div>
     )
   }

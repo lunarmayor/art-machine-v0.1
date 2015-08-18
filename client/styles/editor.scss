@@ -15,12 +15,27 @@
   z-index:2 !important
 }
 
+.editor {
+  h5 {
+    margin: 0;
+    padding: 15px 20px;
+    background: rgba(#fff, 0.2);
+  }
+}
+
 .editor aside {
   float: right;
   width: 30%;
   height: 100%;
   background: rgba(255,255, 255, 0.1);
   border-left: 1px solid rgba(255, 255, 255, 0.2)
+}
+
+.brush {
+  width: 30px;
+}
+.paintBrush {
+  width: 32px;
 }
 
 .editor .previewCanvas {
