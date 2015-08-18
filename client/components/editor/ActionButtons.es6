@@ -1,6 +1,6 @@
 class ActionButtons extends React.Component {
   clearCanvas() {
-    EditorActions.changeStage('new')
+    this.props.artBoard.resetWithLastBase()
   }
 
   saveCanvas() {
@@ -14,7 +14,7 @@ class ActionButtons extends React.Component {
   render() {
     return (
       <span>
-        <button onClick={this.clearCanvas.bind(this)}>clear</button>
+        <button onClick={this.clearCanvas.bind(this)}>reset</button>
         <button onClick={this.saveCanvas.bind(this)}>publish</button>
         <button onClick={this.downloadCanvas.bind(this)}>download</button>
       </span>

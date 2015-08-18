@@ -1,6 +1,6 @@
 // TODO move all canvas code in to this library
 class ArtBoard {
-  constructor(canvasEl=null, previewCanvas=null, image=null) {
+  setArtBoard(canvasEl, previewCanvas, image=null) {
     this.canvas = canvasEl || document.createElement('canvas');
     this.backCanvas = previewCanvas || document.createElement('canvas')
     this.setupCanvas();
@@ -11,17 +11,27 @@ class ArtBoard {
     this.density = 20;
     this.sprayRadius = 20;
     this.setupMarker(this.toolColor, this.toolSize);
-  }
-
-  setArtBoard(canvas, preview, image=null) {
-    this.constructor(canvas, preview)
+    this.history = []
+    this.baseImage = null
   }
 
   setupEvents() {
+
     this.canvas.addEventListener('mousedown', this.startDrawing.bind(this))
     this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mouseleave', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mousemove', this.draw.bind(this))
+    window.removeEventListener('keydown', this.restoreHistory.bind(this))
+    window.addEventListener('keydown', this.restoreHistory.bind(this))
+
+  }
+
+  restoreHistory(e) {
+    if(e.metaKey && e.keyCode == 90) {
+      if(this.history.length) {
+        this.handleDataURL(this.history.pop())
+      }
+    }
   }
 
   setupMarker(color='#fff', width=5) {
@@ -83,10 +93,12 @@ class ArtBoard {
     var currentColor = this.context.fillStyle
     this.context.fillStyle = color;
     this.context.fillRect(0, 0, this.width, this.height);
+    this.baseImage = this.canvas.toDataURL()
     this.context.fillStyle = currentColor;
   }
 
   startDrawing(e) {
+    this.saveSnapshot()
     this.drawing = true;
     this.setXY(e);
   }
@@ -148,6 +160,20 @@ class ArtBoard {
     document.body.removeChild(a);
   }
 
+  resetWithLastBase() {
+    if(this.baseImage) {
+      this.handleDataURL(this.baseImage)
+    }
+  }
+
+  handleDataURL(dataUrl) {
+    let img = new Image()
+    img.onload = () =>
+      this.context.drawImage(img, 0, 0)
+
+    img.src = dataUrl
+  }
+
   handleImage(file) {
     if(!file.type.match('image.*')) {
       return false;
@@ -158,6 +184,8 @@ class ArtBoard {
       let img = new Image()
       img.onload = () => {
         this.context.drawImage(img, 0, 0, 320, 320)
+        this.history = []
+        this.baseImage = this.canvas.toDataURL()
       }
       img.src = e.target.result
     }
@@ -169,7 +197,12 @@ class ArtBoard {
     return this.canvas.toDataURL();
   }
 
+  saveSnapshot() {
+    this.history.push(this.canvas.toDataURL())
+  }
+
   glitchCanvas(name) {
+    this.saveSnapshot()
     this.backContext.drawImage(this.canvas, 0, 0)
     let imageData = this.backContext.getImageData(0, 0, 320, 320)
     let pixelData = imageData.data
