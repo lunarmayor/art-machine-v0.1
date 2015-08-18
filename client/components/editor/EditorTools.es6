@@ -88,7 +88,7 @@ class EditorTools extends React.Component {
             </td>
           </tr>
         </table>
-        <div>
+        <div className='toolOptions-container'>
           {this.activeToolComponent()}
         </div>
       </div>

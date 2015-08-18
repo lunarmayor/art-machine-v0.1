@@ -4,10 +4,9 @@ class GlitchFilter extends React.Component {
   }
 
   render() {
-    let style = { background: this.props.color };
 
     return (
-      <li onClick={this.glitchCanvas.bind(this)} style={style}>{this.props.name}</li>
+      <li onClick={this.glitchCanvas.bind(this)}>{this.props.name}</li>
     )
   }
 }

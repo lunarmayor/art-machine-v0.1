@@ -23,6 +23,12 @@ nav {
 li {
   padding: 14px 20px;
   text-align: center;
+  border-bottom: 1px solid rgba(#fff, 0.1);
+  cursor: pointer;
+}
+
+li:hover {
+  background: rgba(#fff, 0.1)
 }
 
 a {

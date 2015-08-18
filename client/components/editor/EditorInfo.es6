@@ -3,10 +3,11 @@ class EditorInfo extends React.Component {
     return (
       <div>
         <p>
-          Choose a color background or drag an image on to the canvas.
+          Choose a background or drag an image onto the canvas.
         </p>
         <p>
-          hint: images are more fund :)
+          hint:
+          images are more fun :)
         </p>
       </div>
     )
