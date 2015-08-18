@@ -162,6 +162,7 @@ class ArtBoard {
 
   resetWithLastBase() {
     if(this.baseImage) {
+      this.history = []
       this.handleDataURL(this.baseImage)
     }
   }
@@ -199,6 +200,9 @@ class ArtBoard {
 
   saveSnapshot() {
     this.history.push(this.canvas.toDataURL())
+    if(this.history.length > 60) {
+      this.history.shift()
+    }
   }
 
   glitchCanvas(name) {
