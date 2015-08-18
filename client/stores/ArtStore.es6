@@ -5,13 +5,18 @@ class ArtWorkStore {
       onCreate: ArtWorkActions.create
     });
 
-    this.artWorks = ArtWork.findAll();
+    this.meteorData = new ReactiveDict;
+    this.meteorData.set('limit', 15)
 
-    Meteor.subscribe('artWorks');
+    Deps.autorun(() => {
+      Meteor.subscribe('artFeed', this.meteorData.get('limit'));
+    })
+
+    this.artWorks = ArtWorks.find({}, { sort: { created_at: -1 }})
   }
 
   onArtWorksChanged() {
-    this.setState({artWorks: ArtWork.findAll()})
+    this.setState({artWorks: ArtWorks.find({}, { sort: { created_at: -1 }})})
   }
 
   onCreate(canvasData) {
