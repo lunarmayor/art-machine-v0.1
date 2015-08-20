@@ -1,0 +1,27 @@
+.upvoteBtn {
+  cursor: pointer;
+  line-height: 24px;
+}
+
+.upvoteBtn-icon, .upvoteBtn-count {
+  display: inline-block;
+}
+
+.upvoteBtn-icon {
+  margin-right: 10px;
+  svg {
+    width: 25px;
+    vertical-align: bottom;
+  }
+
+  svg path {
+    transition: fill 1s;
+    stroke: white;
+    fill: rgba(255,255,255,0.1);
+  }
+
+  &.isActive svg path {
+    fill: rgb(191, 67, 67);
+    stroke: none;
+  }
+}
