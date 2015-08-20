@@ -3,6 +3,8 @@ class ArtWorkStore {
     this.bindListeners({
       onArtWorksChanged: CollectionActions.artWorksChanged,
       onCreate: ArtWorkActions.create
+      onCreate: ArtWorkActions.create,
+      onMoreArtWork: ArtWorkActions.moreArtWork,
     });
 
     this.meteorData = new ReactiveDict;
@@ -19,6 +21,9 @@ class ArtWorkStore {
     this.setState({artWorks: ArtWorks.find({}, { sort: { created_at: -1 }})})
   }
 
+  onMoreArtWork() {
+    this.meteorData.set('limit', this.meteorData.get('limit') + 10)
+  }
   onCreate(canvasData) {
     ArtWork.create({
       canvasData: canvasData,
