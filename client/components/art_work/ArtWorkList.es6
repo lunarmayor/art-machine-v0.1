@@ -5,9 +5,9 @@ class ArtWorkList extends React.Component {
     })
 
     return (
-      <ul className='artWorkList'>
+      <div className='artWorkList'>
         {artWorks}
-      </ul>
+      </div>
     )
   }
 }

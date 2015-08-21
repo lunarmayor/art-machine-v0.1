@@ -4,9 +4,7 @@ class UserInfo extends React.Component {
     let user = this.props.user
     return (
       <div className="userInfo">
-        <div className='artWork-userAv'>
-          <img src={user.services.twitter.profile_image_url}/>
-        </div>
+        <img className='userInfo-image' src={user.services.twitter.profile_image_url}/>
         <div className="userInfo-name">
           {user.profile.name}
         </div>
