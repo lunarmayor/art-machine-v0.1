@@ -14,3 +14,10 @@ Meteor.startup(function() {
   });
 
 });
+
+if(Meteor.isServer) {
+  Accounts.validateLoginAttempt(function(info) {
+    let user = info.user;
+    if(user.isBanned) throw new Meteor.Error(403, 'You are banned');
+  });
+}
