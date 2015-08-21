@@ -1,19 +1,4 @@
 class ArtWorkItem extends React.Component {
-  componentDidMount() {
-    this.setupCanvas();
-  }
-
-  setupCanvas() {
-    this.canvas = React.findDOMNode(this.refs.canvas);
-    this.context = this.canvas.getContext('2d')
-
-    let img = new Image()
-    img.onload = () =>
-      this.context.drawImage(img, 0, 0)
-
-    img.src = this.props.artWork.canvasData
-  }
-
   render() {
     let artWork = this.props.artWork;
     let user = artWork.user;
@@ -28,7 +13,7 @@ class ArtWorkItem extends React.Component {
             {user.name}
           </div>
         </h5>
-        <canvas ref='canvas' width='320' height='320' className='artWork-canvas'/>
+        <img src={this.props.artWork.canvasData} name={this.props.artWork._id} ref='canvas' width='320' height='320' className='artWork-canvas'/>
         <footer className='artWork-footer'>
           <UpvoteButton artWork={this.props.artWork}/>
           <RemixButton artWork={this.props.artWork}/>

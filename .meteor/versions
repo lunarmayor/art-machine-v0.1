@@ -47,6 +47,7 @@ oauth@1.1.4
 oauth1@1.1.4
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+peppelg:mongo-sum@2.0.0
 promise@0.4.1
 random@1.0.3
 react@0.1.7

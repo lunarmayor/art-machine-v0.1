@@ -10,6 +10,7 @@ Meteor.startup(() => {
       <Route component={App}>
         <Route path='/' component={Home} onEnter={requireAuth}/>
         <Route path='/editor' component={Editor} onEnter={requireAuth} onLeave={leaveEditor}/>
+        <Route path='/profile' component={Profile} onEnter={requireAuth}/>
         <Route path='/login' component={Login} onEnter={goHomeIfLoggedIn}/>
       </Route>
     </Router>
