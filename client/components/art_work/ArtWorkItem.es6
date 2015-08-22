@@ -16,6 +16,9 @@ class ArtWorkItem extends React.Component {
         <img src={this.props.artWork.canvasData} name={this.props.artWork._id} ref='canvas' width='320' height='320' className='artWork-canvas'/>
         <footer className='artWork-footer'>
           <UpvoteButton artWork={this.props.artWork}/>
+          { Meteor.userId() === user._id || Meteor.user().isAdmin ?
+            <DeleteButton artWork={this.props.artWork}/>
+          : null }
           <RemixButton artWork={this.props.artWork}/>
         </footer>
       </div>

@@ -5,6 +5,7 @@ class ArtWorkStore {
       onCreate: ArtWorkActions.create,
       onMoreArtWork: ArtWorkActions.moreArtWork,
       onUpvote: ArtWorkActions.upvote,
+      onDestroy: ArtWorkActions.destroy,
     });
 
     this.meteorData = new ReactiveDict;
@@ -23,6 +24,14 @@ class ArtWorkStore {
 
   onMoreArtWork() {
     this.meteorData.set('limit', this.meteorData.get('limit') + 10)
+  }
+
+  onDestroy(id) {
+    let user = Meteor.user();
+    let artwork = ArtWorks.findOne(id)
+    if(user._id ===  artwork.user._id || user.isAdmin) {
+      ArtWorks.remove({_id: id})
+    }
   }
 
   onUpvote(artWorkId) {

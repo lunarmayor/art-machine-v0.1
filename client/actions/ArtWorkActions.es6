@@ -14,6 +14,10 @@ class ArtWorkActions {
   setUser(id) {
     this.dispatch(id)
   }
+
+  destroy(id) {
+    this.dispatch(id)
+  }
 }
 
 this.ArtWorkActions = alt.createActions(ArtWorkActions)
