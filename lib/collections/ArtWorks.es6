@@ -10,7 +10,7 @@ if(Meteor.isServer) {
   // move to a users collection file
   Meteor.publish("userData", function () {
     return Meteor.users.find({_id: this.userId},
-                    {fields: {'services.twitter': 1}});
+                    {fields: {'services.twitter': 1, 'isAdmin': 1}});
   });
 
   Meteor.publish('artFeed', function(limit) {
