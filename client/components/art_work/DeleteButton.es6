@@ -5,7 +5,7 @@ class DeleteButton extends React.Component {
 
   render() {
     return (
-      <div onClick={this.destroyArtWork.bind(this)}>x</div>
+      <div className="deleteBtn" onClick={this.destroyArtWork.bind(this)}>x</div>
     )
   }
 }
