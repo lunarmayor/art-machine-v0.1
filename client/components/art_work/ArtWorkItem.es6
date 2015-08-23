@@ -9,13 +9,15 @@ class ArtWorkItem extends React.Component {
 
     return(
       <div className='artWork'>
-        <img
-          onDoubleClick={this.upvote.bind(this)}
-          src={this.props.artWork.canvasData}
-          name={this.props.artWork._id}
-          ref='canvas' width='320'
-          height='320'
-          className='artWork-canvas'/>
+        <Link to={`/art-piece/${artWork._id}`}>
+          <img
+            onDoubleClick={this.upvote.bind(this)}
+            src={this.props.artWork.canvasData}
+            name={this.props.artWork._id}
+            ref='canvas' width='320'
+            height='320'
+            className='artWork-canvas'/>
+        </Link>
         <footer className='artWork-footer'>
           <div className='artWork-userAv'>
             <Link to={`/profile/${user._id}`}>

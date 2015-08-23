@@ -1,0 +1,29 @@
+.artPieceContainer {
+  display: flex;
+  justify-content: center;
+}
+.artPiece {
+  margin-top: 25px;
+  header {
+    margin-bottom: 3px;
+  }
+  h4 img {
+    position: relative;
+    vertical-align: bottom;
+    top: 7px;
+    border-radius: 50%;
+    width: 33px;
+  }
+  h4 {
+    display: inline-block;
+    margin: 0;
+  }
+  h3 {
+    display: inline-block;
+    margin: 0;
+    font-size: 17px;
+    line-height: 50px;
+    font-weight: 100;
+    margin-left: 15px;
+  }
+}

@@ -15,6 +15,7 @@ Meteor.startup(() => {
         </Route>
         <Route path='editor' component={Editor} onEnter={requireAuth} onLeave={leaveEditor}/>
         <Route path='profile/:id' component={Profile} onEnter={requireAuth}/>
+        <Route path='art-piece/:id' component={ArtPieceContainer} onEnter={requireAuth}/>
         <Route path='login' component={Login} onEnter={goHomeIfLoggedIn}/>
       </Route>
     </Router>
