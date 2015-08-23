@@ -3,6 +3,7 @@ this.Profile = React.createClass({
 
   getMeteorData() {
     Meteor.subscribe('profileData', this.props.params.id);
+    ArtWorkActions.setUser(this.props.params.id)
 
     return {
       currentUser: Meteor.users.findOne({ _id: this.props.params.id })

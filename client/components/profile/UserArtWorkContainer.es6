@@ -6,7 +6,6 @@ class UserArtWorkContainer extends React.Component {
 
   componentDidMount() {
     UserArtWorkStore.listen(this.onChange.bind(this))
-    ArtWorkActions.setUser(this.props.id)
   }
 
   componentWillUnmount() {

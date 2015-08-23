@@ -15,7 +15,7 @@ if(Meteor.isServer) {
 
   Meteor.publish("profileData", function (id) {
     return Meteor.users.find({_id: id},
-                    {fields: {'services.twitter': 1, 'isAdmin': 1}});
+                    {fields: {'services.twitter': 1, 'isAdmin': 1, profile: 1}});
   });
 
   Meteor.publish('topArt', function(limit) {
