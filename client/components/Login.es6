@@ -1,14 +1,13 @@
-this.Login = React.createClass({
-  mixins: [ReactRouter.Navigation],
-
+@HasMeteorData
+class Login extends React.Component {
   loginWithTwitter() {
     Accounts.onLogin(this.redirectToNext)
     Meteor.loginWithTwitter()
-  },
+  }
 
   redirectToNext() {
     this.transitionTo('/')
-  },
+  }
 
   render() {
     return (
@@ -18,4 +17,6 @@ this.Login = React.createClass({
       </div>
     )
   }
-})
+}
+
+this.Login = Login

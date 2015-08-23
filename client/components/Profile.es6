@@ -1,6 +1,5 @@
-this.Profile = React.createClass({
-  mixins: [ReactMeteorData],
-
+@HasMeteorData
+class Profile extends React.Component {
   getMeteorData() {
     Meteor.subscribe('profileData', this.props.params.id);
     ArtWorkActions.setUser(this.props.params.id)
@@ -8,7 +7,7 @@ this.Profile = React.createClass({
     return {
       currentUser: Meteor.users.findOne({ _id: this.props.params.id })
     }
-  },
+  }
 
   render() {
     let user = this.data.currentUser;
@@ -26,4 +25,6 @@ this.Profile = React.createClass({
       </div>
     )
   }
-})
+}
+
+this.Profile = Profile;

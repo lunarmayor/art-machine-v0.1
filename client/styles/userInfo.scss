@@ -16,10 +16,31 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.userInfo-name {
+.userInfo-name, .userInfo-upvoteCount {
   position: relative;
   bottom: -1px;
-  left: 13px;
+  margin-left: 13px;
   display: inline-block;
   color: gainsboro;
+}
+
+.userInfo-upvoteIcon {
+  @extend .upvoteBtn-icon;
+  display: inline-block;
+  width: 18px;
+  margin-left: 12px;
+  margin-right: 10px;
+  vertical-align: middle;
+  position: relative;
+  top: 1px;
+  svg {
+    width: 18px;
+    vertical-algin: middle
+  }
+  svg path {
+    transition: fill 1s;
+    stroke: white;
+    fill: rgba(255,255,255,0.1);
+  }
+
 }

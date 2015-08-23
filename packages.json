@@ -1,5 +1,6 @@
 {
   "externalify": "0.1.0",
   "alt": "0.17.1",
-  "timeout-transition-group": "1.0.3"
+  "timeout-transition-group": "1.0.3",
+  "react-mixin-decorator": "1.1.3"
 }
