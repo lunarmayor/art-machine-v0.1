@@ -10,9 +10,11 @@ this.Profile = React.createClass({
   },
 
   render() {
+    let user = this.data.currentUser;
+
     return (
       <div className='profile'>
-        { this.data.currentUser && this.data.currentUser.services  ?
+        { user && user.services && user.profile  ?
           <div>
             <UserInfo user={this.data.currentUser}/>
             <div>
