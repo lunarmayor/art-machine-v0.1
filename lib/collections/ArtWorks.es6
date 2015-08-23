@@ -13,6 +13,10 @@ if(Meteor.isServer) {
                     {fields: {'services.twitter': 1, 'isAdmin': 1}});
   });
 
+  Meteor.publish('topArt', function(limit) {
+    return ArtWorks.find({}, { limit: limit, sort: { upvotes: -1}})
+  })
+
   Meteor.publish('artFeed', function(limit) {
     return ArtWorks.find({}, { limit: limit, sort: { created_at: -1 }})
   })

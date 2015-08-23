@@ -19,7 +19,7 @@ class UserArtWorkContainer extends React.Component {
 
   render() {
     return (
-      <UserArtWorkList artWorks={this.state.artWorks}/>
+      <ArtWorkList artWorks={this.state.artWorks}/>
     )
   }
 }

@@ -6,10 +6,11 @@ class Home extends React.Component {
   render() {
     return (
       <div className='home'>
-        <div className="userInfo">Explore</div>
-        <InfiniteScrollContainer onScrollBottom={this.addArtWork.bind(this)}>
-          <ArtWorkContainer/>
-        </InfiniteScrollContainer>
+        <div className='subnav'>
+          <Link className='subnav-link' to="/explore/top">top</Link>
+          <Link className='subnav-link' to="/explore/stream">stream</Link>
+        </div>
+        { this.props.children }
       </div>
     )
   }

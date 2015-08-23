@@ -9,17 +9,6 @@ class ArtWorkItem extends React.Component {
 
     return(
       <div className='artWork'>
-        <h5 className='artWork-header'>
-          <div className='artWork-userAv'>
-            <img src={user.av_url}/>
-          </div>
-          <div className='artWork-userName'>
-            {user.name}
-          </div>
-          { Meteor.userId() === user._id || Meteor.user().isAdmin ?
-            <DeleteButton artWork={this.props.artWork}/>
-          : null }
-        </h5>
         <img
           onDoubleClick={this.upvote.bind(this)}
           src={this.props.artWork.canvasData}
@@ -28,8 +17,14 @@ class ArtWorkItem extends React.Component {
           height='320'
           className='artWork-canvas'/>
         <footer className='artWork-footer'>
+          <div className='artWork-userAv'>
+            <img src={user.av_url}/>
+          </div>
           <UpvoteButton artWork={this.props.artWork}/>
           <RemixButton artWork={this.props.artWork}/>
+          { Meteor.userId() === user._id || Meteor.user().isAdmin ?
+            <DeleteButton artWork={this.props.artWork}/>
+          : null }
         </footer>
       </div>
     )

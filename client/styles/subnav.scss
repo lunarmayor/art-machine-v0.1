@@ -1,0 +1,23 @@
+.subnav {
+  top: 59px;
+  padding: 0px 25px;
+  background: rgb(85, 82, 135);
+  position: fixed;
+  width: 100%;
+  z-index: 9;
+  clear: both;
+  height: auto;
+}
+
+.subnav-link {
+  display: inline-block;
+  width: 50px;
+  padding: 10px;
+  color: gainsboro;
+  transition: color 0.6s, background 0.6s;
+  text-align: center;
+  &.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.09);
+  }
+}
