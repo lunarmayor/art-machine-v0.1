@@ -18,7 +18,9 @@ class ArtWorkItem extends React.Component {
           className='artWork-canvas'/>
         <footer className='artWork-footer'>
           <div className='artWork-userAv'>
-            <img src={user.av_url}/>
+            <Link to={`/profile/${user._id}`}>
+              <img src={user.av_url}/>
+            </Link>
           </div>
           <UpvoteButton artWork={this.props.artWork}/>
           <RemixButton artWork={this.props.artWork}/>

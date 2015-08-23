@@ -2,10 +2,10 @@ this.Profile = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
-    Meteor.subscribe('userData');
+    Meteor.subscribe('profileData', this.props.params.id);
 
     return {
-      currentUser: Meteor.user()
+      currentUser: Meteor.users.findOne({ _id: this.props.params.id })
     }
   },
 

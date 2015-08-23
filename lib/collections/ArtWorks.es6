@@ -13,6 +13,11 @@ if(Meteor.isServer) {
                     {fields: {'services.twitter': 1, 'isAdmin': 1}});
   });
 
+  Meteor.publish("profileData", function (id) {
+    return Meteor.users.find({_id: id},
+                    {fields: {'services.twitter': 1, 'isAdmin': 1}});
+  });
+
   Meteor.publish('topArt', function(limit) {
     return ArtWorks.find({}, { limit: limit, sort: { upvotes: -1}})
   })
