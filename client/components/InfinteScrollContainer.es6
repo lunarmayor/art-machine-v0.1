@@ -6,7 +6,7 @@ class InfiniteScrollContainer extends React.Component {
   onScroll(e) {
     let docHeight = this.getHeight()
     let distance = docHeight - (window.innerHeight + window.scrollY)
-    if (distance < 150) {
+    if (distance < 120) {
       this.props.onScrollBottom()
     }
   }

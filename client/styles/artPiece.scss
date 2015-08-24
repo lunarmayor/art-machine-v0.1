@@ -5,7 +5,21 @@
 .artPiece {
   margin-top: 25px;
   header {
-    margin-bottom: 3px;
+    margin-bottom: 15px;
+    img {
+      border: 1px solid rgba(#fff, 0.2);
+    }
+  }
+  header svg {
+    display: inline-block;
+    width: 20px;
+    /* padding: 12px; */
+    margin-left: 15px;
+    margin-right: 8px;
+    /* margin-top: 10px; */
+    position: relative;
+    top: 7px;
+    fill: rgba(255, 255, 255, 0.42);
   }
   h4 img {
     position: relative;
@@ -14,7 +28,15 @@
     border-radius: 50%;
     width: 33px;
   }
-  h4 {
+  h6 img {
+    position: relative;
+    vertical-align: bottom;
+    top: 7px;
+    margin-left: 3px;
+    border-radius: 50%;
+    width: 25px;
+  }
+  h4, h6 {
     display: inline-block;
     margin: 0;
   }
@@ -22,8 +44,17 @@
     display: inline-block;
     margin: 0;
     font-size: 17px;
-    line-height: 50px;
+    color: rgba(255, 255, 254, 0.78);
+    line-height: 30px;
     font-weight: 100;
     margin-left: 15px;
+  }
+  h5 {
+    display: inline-block;
+    margin: 0;
+    font-size: 13px;
+    line-height: 30px;
+    font-weight: 100;
+    margin-left: 9px;
   }
 }

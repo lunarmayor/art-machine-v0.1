@@ -6,9 +6,10 @@ class ArtWorkItem extends React.Component {
   render() {
     let artWork = this.props.artWork;
     let user = artWork.user;
+    let classes = `artWork${this.props.expanded ? ' is-expanded' : ''}`
 
     return(
-      <div className='artWork'>
+      <div className={classes}>
         <Link to={`/art-piece/${artWork._id}`}>
           <img
             onDoubleClick={this.upvote.bind(this)}
@@ -19,11 +20,15 @@ class ArtWorkItem extends React.Component {
             className='artWork-canvas'/>
         </Link>
         <footer className='artWork-footer'>
-          <div className='artWork-userAv'>
-            <Link to={`/profile/${user._id}`}>
-              <img src={user.av_url}/>
-            </Link>
-          </div>
+          { this.props.expanded ?
+            null
+          :
+            <div className='artWork-userAv'>
+              <Link to={`/profile/${user._id}`}>
+                <img src={user.av_url}/>
+              </Link>
+            </div>
+          }
           <UpvoteButton artWork={this.props.artWork}/>
           <RemixButton artWork={this.props.artWork}/>
           { Meteor.userId() === user._id || Meteor.user().isAdmin ?

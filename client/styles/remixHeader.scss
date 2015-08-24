@@ -1,9 +1,13 @@
 .remixHeader {
   padding-top: 10px;
   position: absolute;
-  left: 50%;
+  left: 0;
   width: 68%;
-  transform: translate(-50%,0);
+  .remixHeader-innerContainer {
+    width: 320px;
+    margin-left: 50%;
+    transform: translate(-50%,0);
+  }
   img {
     border-radius: 50%;
     width: 22px;

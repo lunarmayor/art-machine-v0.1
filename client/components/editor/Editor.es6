@@ -35,9 +35,11 @@ class Editor extends React.Component {
       <div className="editor">
         { this.props.original && this.props.original.user ?
           <div className="remixHeader">
-            remixing:
-            <img src={this.props.original.user.av_url}/>
-            {this.props.original.user.name}
+            <div className="remixHeader-innerContainer">
+              remixing:
+              <img src={this.props.original.user.av_url}/>
+              {this.props.original.user.name}
+            </div>
           </div>
         : null }
         <section>
