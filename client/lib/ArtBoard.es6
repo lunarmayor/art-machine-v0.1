@@ -179,6 +179,15 @@ class ArtBoard {
     img.src = dataUrl
   }
 
+  loadAndSave(dataUrl) {
+    let img = new Image()
+    img.onload = () =>
+      this.context.drawImage(img, 0, 0)
+      this.baseImage = dataUrl
+
+    img.src = dataUrl
+  }
+
   handleImage(file) {
     if(!file.type.match('image.*')) {
       return false;
@@ -191,6 +200,7 @@ class ArtBoard {
         this.context.drawImage(img, 0, 0, 320, 320)
         this.history = []
         this.baseImage = this.canvas.toDataURL()
+        EditorActions.clearRemix()
       }
       img.src = e.target.result
     }

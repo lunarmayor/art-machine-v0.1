@@ -20,6 +20,9 @@ class Editor extends React.Component {
     this.canvas = React.findDOMNode(this.refs.canvas)
     this.backCanvas = React.findDOMNode(this.refs.preview)
     this.props.artBoard.setArtBoard(this.canvas, this.backCanvas)
+    if(this.props.params && this.props.params.id) {
+      ArtWorkActions.setRemix(this.props.params.id)
+    }
   }
 
   handleImage(file) {
@@ -30,6 +33,13 @@ class Editor extends React.Component {
   render() {
     return (
       <div className="editor">
+        { this.props.original && this.props.original.user ?
+          <div className="remixHeader">
+            remixing:
+            <img src={this.props.original.user.av_url}/>
+            {this.props.original.user.name}
+          </div>
+        : null }
         <section>
           {this.props.stage == 'new' ?
             <BackgroundPicker artBoard={this.props.artBoard}/>
@@ -43,7 +53,7 @@ class Editor extends React.Component {
               <canvas width='320' height='320' className='previewCanvas' ref='preview'/>
             </FileDropZone>
             {!(this.props.stage == 'new') ?
-              <ActionButtons artBoard={this.props.artBoard}/>
+              <ActionButtons original={this.props.original} artBoard={this.props.artBoard}/>
             : null}
           </div>
         </section>

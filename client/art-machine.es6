@@ -2,7 +2,6 @@ const { Router, Redirect, Route, Link, State, Navigation } = ReactRouter;
 const { history } = ReactRouter.lib.BrowserHistory;
 this.Link = Link
 this.State = State
-this.Navigation = Navigation
 
 Meteor.startup(() => {
   React.render((
@@ -14,6 +13,7 @@ Meteor.startup(() => {
           <Route path='stream' component={ArtWorkContainer}/>
         </Route>
         <Route path='editor' component={Editor} onEnter={requireAuth} onLeave={leaveEditor}/>
+        <Route path='editor/remix/:id' component={Editor} onEnter={requireAuth} onLeave={leaveEditor}/>
         <Route path='profile/:id' component={Profile} onEnter={requireAuth}/>
         <Route path='art-piece/:id' component={ArtPieceContainer} onEnter={requireAuth}/>
         <Route path='login' component={Login} onEnter={goHomeIfLoggedIn}/>
@@ -23,4 +23,4 @@ Meteor.startup(() => {
 })
 
 leaveEditor = () =>
-  EditorActions.changeStage('new')
+  EditorActions.resetEditor()

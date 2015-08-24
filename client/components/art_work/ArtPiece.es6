@@ -11,7 +11,12 @@ class ArtPieceViewer extends React.Component {
               <img src={user.av_url}/>
             </Link>
           </h4>
-          <h3>{user.name}</h3>
+          <h3>
+            {user.name}
+            { art.isRemix ?
+              ' (remix)'
+            : null }
+          </h3>
         </header>
         <img src={art.canvasData}/>
         <footer>

@@ -50,18 +50,55 @@ class ArtWorkStore {
     }
   }
 
-  onCreate(canvasData) {
-    ArtWork.create({
-      canvasData: canvasData,
-      created_at: new Date(),
-      upvoters: [],
-      upvotes: 0,
-      user: {
-        _id:  Meteor.userId(),
-        name: Meteor.user().profile.name,
-        av_url: Meteor.user().services.twitter.profile_image_url,
-      }
-    })
+  onCreate(createData) {
+    if(createData.original) {
+      let id = ArtWork.create({
+        canvasData: createData.canvasData,
+        created_at: new Date(),
+        upvoters: [],
+        upvotes: 0,
+        remixers: 0,
+        remixOf: createData.original._id,
+        isRemix: true,
+        remixee: {
+          _id: createData.original.user._id,
+          name: createData.original.user.name,
+          av_url: createData.original.user.av_url,
+        },
+        remixes: [],
+        user: {
+          _id:  Meteor.userId(),
+          name: Meteor.user().profile.name,
+          av_url: Meteor.user().services.twitter.profile_image_url,
+        }
+      })
+
+      ArtWorks.update(
+        {
+          _id: createData.original._id,
+        },
+        {
+          $push: { remixes: id },
+          $inc: { remixers: 1 },
+        }
+      )
+    } else {
+      ArtWork.create({
+        canvasData: createData.canvasData,
+        created_at: new Date(),
+        upvoters: [],
+        upvotes: 0,
+        remixers: 0,
+        remixes: [],
+        remixOf: null,
+        isRemix: false,
+        user: {
+          _id:  Meteor.userId(),
+          name: Meteor.user().profile.name,
+          av_url: Meteor.user().services.twitter.profile_image_url,
+        }
+      })
+    }
   }
 }
 

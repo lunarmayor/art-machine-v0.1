@@ -1,6 +1,6 @@
 class ArtWorkActions {
-  create(canvasData) {
-    this.dispatch(canvasData)
+  create(createData) {
+    this.dispatch(createData)
   }
 
   moreArtWork() {
@@ -12,6 +12,10 @@ class ArtWorkActions {
   }
 
   setUser(id) {
+    this.dispatch(id)
+  }
+
+  setRemix(id) {
     this.dispatch(id)
   }
 

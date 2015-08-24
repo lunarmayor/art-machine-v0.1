@@ -22,4 +22,7 @@ function mixin (behaviour, sharedBehaviour = {}) {
   });
   return _mixin;
 }
+this.mixin = mixin
+const { Navigation } = ReactRouter;
+CanNavigate = mixin(Navigation)
 HasMeteorData = mixin(ReactMeteorData);

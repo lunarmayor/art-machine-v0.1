@@ -22,7 +22,7 @@ if(Meteor.isServer) {
 
 ArtWork = {
   create(attributes) {
-    ArtWorks.insert(attributes)
+    return ArtWorks.insert(attributes)
   },
 
   findAll() {

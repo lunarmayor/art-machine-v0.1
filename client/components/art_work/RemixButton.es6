@@ -1,7 +1,13 @@
-class RemixButton extends React.Component {
+this.RemixButton = React.createClass({
+  mixins: [Navigation],
+
+  setupRemixCanvas() {
+    this.transitionTo(`/editor/remix/${this.props.artWork._id}`)
+  },
+
   render() {
     return (
-      <div className='remixBtn'>
+      <div onClick={this.setupRemixCanvas} className='remixBtn'>
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100">
           <g>
             <g>
@@ -15,6 +21,4 @@ class RemixButton extends React.Component {
       </div>
     )
   }
-}
-
-this.RemixButton = RemixButton
+})
