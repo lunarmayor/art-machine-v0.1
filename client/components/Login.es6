@@ -1,4 +1,3 @@
-@HasMeteorData
 class Login extends React.Component {
   loginWithTwitter() {
     Accounts.onLogin(this.redirectToNext)
@@ -11,9 +10,11 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Login</h3>
-        <button onClick={this.loginWithTwitter}>Login with Twitter</button>
+      <div className="flexContainer">
+        <div className="login">
+          <ArtMachineLogo width='50' height='50'/>
+          <button onClick={this.loginWithTwitter}>Login with Twitter</button>
+        </div>
       </div>
     )
   }
