@@ -4,6 +4,12 @@ Meteor.startup(() => {
   if(Meteor.isClient) {
     trackCollection(ArtWorks, CollectionActions.artWorksChanged)
   }
+
+  if(Meteor.isServer) {
+    ArtWorks._ensureIndex({ upvotes: -1 })
+    ArtWorks._ensureIndex({ created_at: -1 })
+    ArtWorks._ensureIndex({ 'user._id': 1 })
+  }
 })
 
 if(Meteor.isServer) {
