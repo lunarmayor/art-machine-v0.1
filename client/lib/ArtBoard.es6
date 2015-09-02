@@ -280,6 +280,25 @@ class ArtBoard {
     }
   }
 
+  messyInvert(i, pixelData) {
+    let brightness = this.calculateBrightness(pixelData, i);
+    let row = i / this.width / 4
+    let position = Math.ceil(row) - row
+
+    let direction = position > 0.5
+    let times = Math.floor(Math.random() * 2)
+
+
+    if(brightness > pixelData[i] && brightness < 200 && brightness > 80) {
+      for(let t = 0; t < times; t++) {
+        pixelData[i +  (4 * t)] = 255 - pixelData[i] + 5
+        pixelData[i + 1 + (4 * t)] = 255 - pixelData[i + 1] + 5
+        pixelData[i + 2 + (4 * t)] =  255 - pixelData[i + 2]
+      }
+    }
+    return [255 - pixelData[i] + 5, 255 - pixelData[i+1], 255 - pixelData[i+2]]
+  }
+
   lightGravity(i, pixelData) {
     let brightness = this.calculateBrightness(pixelData, i);
     if(brightness > 80) {

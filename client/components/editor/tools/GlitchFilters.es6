@@ -1,16 +1,17 @@
 let filters = [
-  { name: 'lavaworld', color: '#00B9F2' },
-  { name: 'aquafier', color: '#008FD5' },
-  { name: 'darkGravity', color: '#034DA2' },
-  { name: 'lightGravity', color: '#662E91' },
-  { name: 'new', color: '#942977' },
-  { name: 'newnew', color: '#BF245E' },
-  { name: 'slicer', color: '#EC1B30' },
-  { name: 'random', color: '#F36523' },
-  { name: 'newnews', color: '#FFC20F' },
-  { name: 'crusher', color: '#FFEC01' },
-  { name: 'blueGreenMeltDown', color: '#CADB2A' },
-  { name: 'splitFace', color: '#eee' },
+  { display: 'lava world',name: 'lavaworld'},
+  { display: 'aquafier', name: 'aquafier'},
+  { display: 'dark gravity', name: 'darkGravity'},
+  { display: 'light gravity', name: 'lightGravity'},
+  { display: 'time 1', name: 'new'},
+  { display: 'grainz', name: 'newnew'},
+  { display: 'slicer', name: 'slicer'},
+  { display: 'neon melt', name: 'random'},
+  { display: 'vertical dispersal', name: 'newnews'},
+  { display: 'stripes', name: 'crusher'},
+  { display: 'electric shift', name: 'blueGreenMeltDown'},
+  { display: 'split face', name: 'splitFace'},
+  { display: 'messy invert', name: 'messyInvert' },
 ]
 
 class GlitchFilters extends React.Component {
@@ -20,7 +21,7 @@ class GlitchFilters extends React.Component {
 
   render() {
     let glitchFilters = filters.map((filter) => {
-      return <GlitchFilter {...this.props} name={filter.name} color={filter.color}/>
+      return <GlitchFilter {...this.props} display={filter.display} name={filter.name}/>
     })
 
     return (

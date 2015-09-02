@@ -6,7 +6,7 @@ class GlitchFilter extends React.Component {
   render() {
 
     return (
-      <li onClick={this.glitchCanvas.bind(this)}>{this.props.name}</li>
+      <li onClick={this.glitchCanvas.bind(this)}>{this.props.display}</li>
     )
   }
 }
