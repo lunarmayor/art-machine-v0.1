@@ -15,7 +15,7 @@ class ArtWorkStore {
       Meteor.subscribe('artFeed', this.meteorData.get('limit'));
     })
 
-    this.artWorks = ArtWorks.find({}, { limit: this.meteorData.get('limit'), sort: { created_at: -1 }})
+    this.artWorks = []
   }
 
   onArtWorksChanged() {
