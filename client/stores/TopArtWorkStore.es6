@@ -16,8 +16,9 @@ class TopArtWorkStore {
   }
 
   onArtWorksChanged() {
+    console.log(this.meteorData.get('topLimit'))
     this.setState({
-      artWorks: ArtWorks.find({}, { limit: this.meteorData.get('topLimit'),  sort: { upvotes: -1, created_at: -1 }}),
+      artWorks: ArtWorks.find({}, { limit: this.meteorData.get('topLimit') || 10,  sort: { upvotes: -1, created_at: -1 }}),
     })
   }
 
