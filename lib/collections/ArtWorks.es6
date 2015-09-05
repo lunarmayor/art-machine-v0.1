@@ -13,11 +13,13 @@ Meteor.startup(() => {
 })
 
 if(Meteor.isServer) {
-  Meteor.publish('topArt', function(limit) {
+  Meteor.publish('topArt', function(limit=10) {
+    console.log(limit)
     return ArtWorks.find({}, { limit: limit, sort: { upvotes: -1, created_at: -1}})
   })
 
   Meteor.publish('artFeed', function(limit) {
+    console.log(limit)
     return ArtWorks.find({}, { limit: limit, sort: { created_at: -1 }})
   })
 

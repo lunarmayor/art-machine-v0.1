@@ -12,7 +12,7 @@ class TopArtWorkStore {
       Meteor.subscribe('topArt', this.meteorData.get('topLimit'));
     })
 
-    this.artWorks = ArtWorks.find({}, { limit: this.meteorData.get('topLimit'), sort: { upvotes: -1, created_at: -1 }})
+    this.artWorks = []
   }
 
   onArtWorksChanged() {
