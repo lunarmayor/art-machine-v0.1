@@ -1,23 +1,20 @@
+topArtWorksData = new ReactiveDict;
+topArtWorksData.set('limit', 20)
+
 @HasMeteorData
 class TopArtWorkContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.meteorData = new ReactiveDict;
-    this.meteorData.set('limit', 10);
-  }
-
   getMeteorData() {
     Deps.autorun(() => {
-      Meteor.subscribe('topArt', this.meteorData.get('limit'))
+      Meteor.subscribe('topArt', topArtWorksData.get('limit'))
     })
 
     return {
-      artWorks: ArtWorks.find({}, { limit: this.meteorData.get('topLimit'),  sort: { upvotes: -1, created_at: -1 }}).fetch(),
+      artWorks: ArtWorks.find({}, { limit: topArtWorksData.get('topLimit'),  sort: { upvotes: -1, created_at: -1 }}).fetch(),
     }
   }
 
   addArtWork() {
-    this.meteorData.set('limit', this.meteorData.get('limit') + 10)
+    topArtWorksData.set('limit', topArtWorksData.get('limit') + 10)
   }
 
   render() {

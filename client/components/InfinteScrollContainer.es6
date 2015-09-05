@@ -1,6 +1,6 @@
 class InfiniteScrollContainer extends React.Component {
   componentDidMount() {
-    this.boundFunction = debounce(this.onScroll.bind(this), 100, false)
+    this.boundFunction = debounce(this.onScroll.bind(this), 10, false)
     window.addEventListener('scroll', this.boundFunction)
   }
 
