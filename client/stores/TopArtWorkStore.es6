@@ -6,7 +6,7 @@ class TopArtWorkStore {
     })
 
     this.meteorData = new ReactiveDict;
-    this.meteorData.set('topLimit', 15)
+    this.meteorData.set('topLimit', 10)
 
     Deps.autorun(() => {
       Meteor.subscribe('topArt', this.meteorData.get('topLimit'));
