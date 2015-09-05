@@ -22,6 +22,7 @@ class TopArtWorkStore {
   }
 
   onMoreArtWork() {
+    console.log('more art')
     this.meteorData.set('topLimit', this.meteorData.get('topLimit') + 10)
   }
 }
