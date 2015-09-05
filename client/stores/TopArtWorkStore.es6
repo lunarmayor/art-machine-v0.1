@@ -1,30 +1,18 @@
 class TopArtWorkStore {
   constructor() {
     this.bindListeners({
-      onArtWorksChanged: CollectionActions.artWorksChanged,
       onMoreArtWork: TopArtWorkActions.moreArtWork,
     })
-
-    this.meteorData = new ReactiveDict;
-    this.meteorData.set('topLimit', 10)
-
-    Deps.autorun(() => {
-      Meteor.subscribe('topArt', this.meteorData.get('topLimit'));
-    })
-
-    this.artWorks = []
   }
 
   onArtWorksChanged() {
-    console.log(this.meteorData.get('topLimit'))
     this.setState({
       artWorks: ArtWorks.find({}, { limit: this.meteorData.get('topLimit') || 10,  sort: { upvotes: -1, created_at: -1 }}),
     })
   }
 
   onMoreArtWork() {
-    console.log('more art')
-    this.meteorData.set('topLimit', this.meteorData.get('topLimit') + 10)
+    //this.meteorData.set('topLimit', this.meteorData.get('topLimit') + 10)
   }
 }
 

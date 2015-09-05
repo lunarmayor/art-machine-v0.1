@@ -1,29 +1,29 @@
+@HasMeteorData
 class TopArtWorkContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = TopArtWorkStore.getState();
+    this.meteorData = new ReactiveDict;
+    this.meteorData.set('limit', 10);
   }
 
- componentDidMount() {
-    TopArtWorkStore.listen(this.onChange.bind(this))
-  }
+  getMeteorData() {
+    Deps.autorun(() => {
+      Meteor.subscribe('topArt', this.meteorData.get('limit'))
+    })
 
-  componentWillUnmount() {
-    TopArtWorkStore.unlisten(this.onChange.bind(this))
-  }
-
-  onChange(state) {
-    this.setState(state)
+    return {
+      artWorks: ArtWorks.find({}, { limit: this.meteorData.get('topLimit'),  sort: { upvotes: -1, created_at: -1 }}).fetch(),
+    }
   }
 
   addArtWork() {
-    TopArtWorkActions.moreArtWork();
+    this.meteorData.set('limit', this.meteorData.get('limit') + 10)
   }
 
   render() {
     return (
       <InfiniteScrollContainer onScrollBottom={this.addArtWork.bind(this)}>
-        <ArtWorkList artWorks={this.state.artWorks}/>
+        <ArtWorkList artWorks={this.data.artWorks}/>
       </InfiniteScrollContainer>
     )
   }

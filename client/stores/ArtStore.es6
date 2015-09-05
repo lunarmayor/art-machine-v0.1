@@ -1,29 +1,15 @@
 class ArtWorkStore {
   constructor() {
     this.bindListeners({
-      onArtWorksChanged: CollectionActions.artWorksChanged,
       onCreate: ArtWorkActions.create,
       onMoreArtWork: ArtWorkActions.moreArtWork,
       onUpvote: ArtWorkActions.upvote,
       onDestroy: ArtWorkActions.destroy,
     });
-
-    this.meteorData = new ReactiveDict;
-    this.meteorData.set('limit', 10)
-
-    Deps.autorun(() => {
-      Meteor.subscribe('artFeed', this.meteorData.get('limit'));
-    })
-
-    this.artWorks = []
-  }
-
-  onArtWorksChanged() {
-    this.setState({artWorks: ArtWorks.find({}, { limit: this.meteorData.get('limit'), sort: { created_at: -1 }})})
   }
 
   onMoreArtWork() {
-    this.meteorData.set('limit', this.meteorData.get('limit') + 10)
+   // this.meteorData.set('limit', this.meteorData.get('limit') + 10)
   }
 
   onDestroy(id) {
