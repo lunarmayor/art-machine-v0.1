@@ -14,7 +14,7 @@ Meteor.startup(() => {
 
 if(Meteor.isServer) {
   Meteor.publish('topArt', function(limit) {
-    return ArtWorks.find({}, { limit: limit, sort: { upvotes: -1}})
+    return ArtWorks.find({}, { limit: limit, sort: { upvotes: -1, created_at: -1}})
   })
 
   Meteor.publish('artFeed', function(limit) {

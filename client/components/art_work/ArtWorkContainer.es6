@@ -16,9 +16,15 @@ class ArtWorkContainer extends React.Component {
     this.setState(state)
   }
 
+  addArtWork() {
+    ArtWorkActions.moreArtWork();
+  }
+
   render() {
     return (
-      <ArtWorkList artWorks={this.state.artWorks}/>
+      <InfiniteScrollContainer onScrollBottom={this.addArtWork.bind(this)}>
+        <ArtWorkList artWorks={this.state.artWorks}/>
+      </InfiniteScrollContainer>
     )
   }
 }

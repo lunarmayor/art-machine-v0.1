@@ -1,6 +1,14 @@
+@CanNavigate
 class Login extends React.Component {
+  componentDidMount() {
+    mixpanel.track('view landing page')
+  }
+
   loginWithTwitter() {
-    Accounts.onLogin(this.redirectToNext)
+    mixpanel.track('login with twitter')
+    Accounts.onLogin(() => {
+      this.redirectToNext
+    })
     Meteor.loginWithTwitter()
   }
 

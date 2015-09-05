@@ -9,17 +9,17 @@ class ArtWorkStore {
     });
 
     this.meteorData = new ReactiveDict;
-    this.meteorData.set('limit', 15)
+    this.meteorData.set('limit', 10)
 
     Deps.autorun(() => {
       Meteor.subscribe('artFeed', this.meteorData.get('limit'));
     })
 
-    this.artWorks = ArtWorks.find({}, { sort: { created_at: -1 }})
+    this.artWorks = ArtWorks.find({}, { limit: this.meteorData.get('limit'), sort: { created_at: -1 }})
   }
 
   onArtWorksChanged() {
-    this.setState({artWorks: ArtWorks.find({}, { sort: { created_at: -1 }})})
+    this.setState({artWorks: ArtWorks.find({}, { limit: this.meteorData.get('limit'), sort: { created_at: -1 }})})
   }
 
   onMoreArtWork() {
@@ -29,6 +29,7 @@ class ArtWorkStore {
   onDestroy(id) {
     let user = Meteor.user();
     let artwork = ArtWorks.findOne(id)
+    mixpanel.track('destory art piece')
     if(user._id ===  artwork.user._id || user.isAdmin) {
       ArtWorks.remove({_id: id})
     }
@@ -37,7 +38,19 @@ class ArtWorkStore {
   onUpvote(artWorkId) {
     let userId = Meteor.userId();
     let artWork = ArtWorks.findOne(artWorkId);
+    mixpanel.track('upvote')
     if(artWork.upvoters.indexOf(userId) === -1) {
+      Notifications.insert({
+        type: 'upvote',
+        userId: artWork.user._id,
+        viewed: false,
+        creator: {
+          _id: Meteor.userId(),
+          name: Meteor.user().profile.name,
+          av_url: Meteor.user().services.twitter.profile_image_url,
+        }
+      })
+
       ArtWorks.update(
         {
           _id: artWorkId,
@@ -52,6 +65,7 @@ class ArtWorkStore {
 
   onCreate(createData) {
     if(createData.original) {
+      mixpanel.track('create remix')
       let id = ArtWork.create({
         canvasData: createData.canvasData,
         created_at: new Date(),
@@ -83,6 +97,7 @@ class ArtWorkStore {
         }
       )
     } else {
+      mixpanel.track('create art piece')
       ArtWork.create({
         canvasData: createData.canvasData,
         created_at: new Date(),

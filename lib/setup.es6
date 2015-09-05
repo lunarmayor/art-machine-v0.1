@@ -1,5 +1,6 @@
 Meteor.startup(function() {
-  if(Accounts.loginServiceConfiguration.count == 0) {
+  if(false) {
+    Accounts.loginServiceConfiguration.remove({_id: "gMH8Tq8JGqrsNAAbm"})
     Accounts.loginServiceConfiguration.insert({
       service     : 'twitter',
       consumerKey : '3hnWyHvLOFryyVha6viarEOVl',
@@ -11,7 +12,7 @@ Meteor.startup(function() {
 if(Meteor.isServer) {
   Accounts.validateLoginAttempt(function(info) {
     let user = info.user;
-    if(user.isBanned) throw new Meteor.Error(403, 'You are banned');
+    if(user && user.isBanned) throw new Meteor.Error(403, 'You are banned');
     return true
   });
 }
