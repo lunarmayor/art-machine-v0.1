@@ -2,8 +2,8 @@ $borderColor: rgb(255, 255, 255);
 
 .dropZone {
   border: 3px solid rgba($borderColor, 0);
-  width: 320px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   transition: border 0.4s ease-in;
 }
 .dropZone.isActive {

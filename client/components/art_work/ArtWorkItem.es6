@@ -13,7 +13,8 @@ class ArtWorkItem extends React.Component {
         <Link to={`/art-piece/${artWork._id}`}>
           <img
             onDoubleClick={this.upvote.bind(this)}
-            src={this.props.artWork.canvasData}
+            crossOrigin=''
+            src={this.props.artWork.imageUrl}
             name={this.props.artWork._id}
             ref='canvas' width='320'
             height='320'

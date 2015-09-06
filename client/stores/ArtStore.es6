@@ -52,7 +52,9 @@ class ArtWorkStore {
   onCreate(createData) {
     if(createData.original) {
       mixpanel.track('create remix')
-      let id = ArtWork.create({
+      let original = createData.original
+      let canvasData = createData.canvasData;
+      let attributes = {
         canvasData: createData.canvasData,
         created_at: new Date(),
         upvoters: [],
@@ -71,21 +73,13 @@ class ArtWorkStore {
           name: Meteor.user().profile.name,
           av_url: Meteor.user().services.twitter.profile_image_url,
         }
-      })
+      }
 
-      ArtWorks.update(
-        {
-          _id: createData.original._id,
-        },
-        {
-          $push: { remixes: id },
-          $inc: { remixers: 1 },
-        }
-      )
+      Meteor.call('saveArtWork', attributes, canvasData, original)
     } else {
       mixpanel.track('create art piece')
-      ArtWork.create({
-        canvasData: createData.canvasData,
+      let canvasData = createData.canvasData
+      let attributes = {
         created_at: new Date(),
         upvoters: [],
         upvotes: 0,
@@ -98,7 +92,9 @@ class ArtWorkStore {
           name: Meteor.user().profile.name,
           av_url: Meteor.user().services.twitter.profile_image_url,
         }
-      })
+      }
+
+      Meteor.call('saveArtWork', attributes, canvasData)
     }
   }
 }

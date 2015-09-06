@@ -12,6 +12,8 @@ class ArtBoard {
     this.sprayRadius = 20;
     this.setupMarker(this.toolColor, this.toolSize);
     this.history = []
+    this.historyExists = new ReactiveVar;
+    this.historyExists.set(false)
     this.baseImage = null
   }
 
@@ -21,15 +23,22 @@ class ArtBoard {
     this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mouseleave', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mousemove', this.draw.bind(this))
-    this.onKeyDown = this.restoreHistory.bind(this)
+    this.onKeyDown = this.onRestoreHistory.bind(this)
     window.addEventListener('keydown', this.onKeyDown)
 
   }
 
-  restoreHistory(e) {
+  onRestoreHistory(e) {
     if(e.metaKey && e.keyCode == 90) {
-      if(this.history.length) {
-        this.handleDataURL(this.history.pop())
+      this.restoreHistory()
+    }
+  }
+
+  restoreHistory() {
+    if(this.history.length) {
+      this.handleDataURL(this.history.pop())
+      if(this.history.length == 0) {
+        this.historyExists.set(false)
       }
     }
   }
@@ -146,8 +155,8 @@ class ArtBoard {
 
   setXY(e) {
     let node = this.canvas.parentElement.parentElement;
-    let x = e.clientX - node.offsetLeft + (0.5 * this.width) - 3
-    let y = e.clientY - 112;
+    let x = (e.clientX / 0.74074074074) - (node.offsetLeft / 0.74074074074) + (0.5 * this.width) - 4;
+    let y = (e.clientY / 0.74074074074) - 153;
     [this.currX, this.currY] = [x, y]
   }
 
@@ -163,6 +172,7 @@ class ArtBoard {
   resetWithLastBase() {
     if(this.baseImage) {
       this.history = []
+      this.historyExists.set(false)
       this.handleDataURL(this.baseImage)
     }
   }
@@ -181,6 +191,7 @@ class ArtBoard {
 
   loadAndSave(dataUrl) {
     let img = new Image()
+    img.crossOrigin = ''
     img.onload = () =>
       this.context.drawImage(img, 0, 0)
       this.baseImage = dataUrl
@@ -197,8 +208,9 @@ class ArtBoard {
     reader.onload = (e) => {
       let img = new Image()
       img.onload = () => {
-        this.context.drawImage(img, 0, 0, 320, 320)
+        this.context.drawImage(img, 0, 0, 540, 540)
         this.history = []
+        this.historyExists.set(false)
         this.baseImage = this.canvas.toDataURL()
         EditorActions.clearRemix()
       }
@@ -214,6 +226,7 @@ class ArtBoard {
 
   saveSnapshot() {
     this.history.push(this.canvas.toDataURL())
+    this.historyExists.set(true)
     if(this.history.length > 60) {
       this.history.shift()
     }
@@ -222,7 +235,7 @@ class ArtBoard {
   glitchCanvas(name) {
     this.saveSnapshot()
     this.backContext.drawImage(this.canvas, 0, 0)
-    let imageData = this.backContext.getImageData(0, 0, 320, 320)
+    let imageData = this.backContext.getImageData(0, 0, 540, 540)
     let pixelData = imageData.data
 
     let i = 0;

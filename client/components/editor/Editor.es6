@@ -51,8 +51,8 @@ class Editor extends React.Component {
               dropHandler={this.handleImage.bind(this)}
               height='320'
               width='320'>
-              <canvas width='320' height='320' ref='canvas'/>
-              <canvas width='320' height='320' className='previewCanvas' ref='preview'/>
+              <canvas width='540' height='540' ref='canvas'/>
+              <canvas width='540' height='540' className='previewCanvas' ref='preview'/>
             </FileDropZone>
             {!(this.props.stage == 'new') ?
               <ActionButtons original={this.props.original} artBoard={this.props.artBoard}/>
