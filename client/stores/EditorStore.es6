@@ -40,7 +40,6 @@ class EditorStore {
 
   onRemixSet(id) {
     this.tracker = this.tracker || Deps.autorun(() => {
-      Meteor.subscribe('artWorkData', this.remixData.get('remixUser'))
       this.setState({
         isRemix: true,
         original: ArtWorks.findOne({_id: this.remixData.get('remixUser')}),
@@ -48,11 +47,12 @@ class EditorStore {
       })
 
       if(this.original) {
-        console.log('go')
         this.artBoard.loadAndSave(this.original.canvasData)
       }
     })
     this.remixData.set('remixUser', id)
+
+    Meteor.subscribe('artPieceData', this.remixData.get('remixUser'))
   }
 }
 

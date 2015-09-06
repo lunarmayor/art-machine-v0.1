@@ -5,7 +5,6 @@ artWorksData.set('limit', 20)
 class ArtWorkContainer extends React.Component {
   getMeteorData() {
     Deps.autorun(() => {
-      console.log(artWorksData.get('limit'))
       Meteor.subscribe('artFeed', artWorksData.get('limit'))
     })
 

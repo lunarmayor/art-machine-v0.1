@@ -26,6 +26,10 @@ if(Meteor.isServer) {
   Meteor.publish('topArtByUser', function(id, limit = 15) {
     return ArtWorks.find({ 'user._id': id }, { limit: limit, sort: { created_at: -1 }})
   })
+
+  Meteor.publish('artPieceData', function(id) {
+    return ArtWorks.find({_id: id})
+  })
 }
 
 ArtWork = {
