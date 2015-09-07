@@ -50,7 +50,9 @@ class EditorStore {
         })
 
         if(this.original) {
-          this.artBoard.loadAndSave(this.original.imageUrl)
+          if(!this.artBoard.baseImage) {
+            this.artBoard.loadAndSave(this.original.imageUrl)
+          }
         }
       }
     })

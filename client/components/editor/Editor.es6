@@ -56,7 +56,7 @@ class Editor extends React.Component {
               <canvas width='540' height='540' className='previewCanvas' ref='preview'/>
             </FileDropZone>
             {!(this.props.stage == 'new') ?
-              <ActionButtons original={this.props.original} artBoard={this.props.artBoard}/>
+              <ActionButtons {...this.props} original={this.props.original} artBoard={this.props.artBoard}/>
             : null}
           </div>
         </section>

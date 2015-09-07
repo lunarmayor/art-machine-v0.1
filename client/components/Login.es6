@@ -1,8 +1,7 @@
-@CanNavigate
-class Login extends React.Component {
+this.Login = React.createClass({
   componentDidMount() {
     mixpanel.track('view landing page')
-  }
+  },
 
   loginWithTwitter() {
     mixpanel.track('login with twitter')
@@ -10,11 +9,11 @@ class Login extends React.Component {
       this.redirectToNext
     })
     Meteor.loginWithTwitter()
-  }
+  },
 
   redirectToNext() {
     this.transitionTo('/')
-  }
+  },
 
   render() {
     return (
@@ -26,6 +25,5 @@ class Login extends React.Component {
       </div>
     )
   }
-}
+})
 
-this.Login = Login

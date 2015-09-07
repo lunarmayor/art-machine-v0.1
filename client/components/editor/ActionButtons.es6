@@ -1,19 +1,16 @@
-@CanNavigate @HasMeteorData
-class ActionButtons extends React.Component {
-  constructor(props) {
-    super(props)
-    window.thang = this;
-  }
+this.ActionButtons = React.createClass({
+  mixins: [ReactMeteorData, Navigation],
+
   getMeteorData() {
     this.props.artBoard.historyExists.get()
     return {
       historyExists: this.props.artBoard.historyExists,
     }
-  }
+  },
 
   clearCanvas() {
     this.props.artBoard.resetWithLastBase()
-  }
+  },
 
   saveCanvas() {
     let createData = {
@@ -22,28 +19,27 @@ class ActionButtons extends React.Component {
     }
     ArtWorkActions.create(createData)
     this.transitionTo('/explore/stream')
-  }
+  },
 
   downloadCanvas() {
     this.props.artBoard.download()
-  }
+  },
 
   restoreHistory() {
     this.props.artBoard.restoreHistory()
-  }
+  },
 
   render() {
     return (
       <span>
-        <button onClick={this.clearCanvas.bind(this)}>reset</button>
-        <button onClick={this.saveCanvas.bind(this)}>publish</button>
-        <button onClick={this.downloadCanvas.bind(this)}>download</button>
+        <button onClick={this.clearCanvas}>reset</button>
+        <button onClick={this.saveCanvas}>publish</button>
+        <button onClick={this.downloadCanvas}>download</button>
         { this.data.historyExists.get() ?
-          <button onClick={this.restoreHistory.bind(this)}>undo</button>
+          <button onClick={this.restoreHistory}>undo</button>
         : null }
       </span>
     )
   }
-}
+})
 
-this.ActionButtons = ActionButtons

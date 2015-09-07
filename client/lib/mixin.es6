@@ -27,3 +27,12 @@ const { Navigation } = ReactRouter;
 console.log(Navigation)
 this.CanNavigate = mixin(Navigation)
 HasMeteorData = mixin(ReactMeteorData);
+
+
+let canTransition = {
+  transitionTo(to, params, query) {
+   this.context.router.transitionTo(to, params, query);
+  }
+}
+
+this.CanTransition = mixin(canTransition)
