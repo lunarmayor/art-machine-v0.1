@@ -27,6 +27,7 @@ class Editor extends React.Component {
 
   handleImage(file) {
     this.props.artBoard.handleImage(file);
+    window.artBoard = this.props.artBoard
     EditorActions.changeStage('edit')
   }
 
