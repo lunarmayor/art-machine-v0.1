@@ -30,6 +30,11 @@ if(Meteor.isServer) {
   Meteor.publish('artPieceData', function(id) {
     return ArtWorks.find({_id: id})
   })
+
+  Meteor.publish('remixData', function(id) {
+    return ArtWorks.find({remixes: {$in: [id]}})
+  })
+
 }
 
 ArtWork = {

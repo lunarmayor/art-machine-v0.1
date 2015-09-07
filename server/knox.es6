@@ -26,7 +26,7 @@ Meteor.methods({
           let id = ArtWork.create(attributes)
           ArtWorks.update(
             {
-              _id: createData.original._id,
+              _id: original._id,
             },
             {
               $push: { remixes: id },

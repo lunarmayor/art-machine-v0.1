@@ -1,6 +1,12 @@
 .artPieceContainer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+  .sectionHeader {
+    font-size: 17px;
+    font-weight: 100;
+  }
 }
 .artPiece {
   margin-top: 25px;
