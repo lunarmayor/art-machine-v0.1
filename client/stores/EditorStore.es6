@@ -27,6 +27,8 @@ class EditorStore {
       isRemix: false,
       original: null,
     })
+    this.remixData.set('remixUser', null)
+    history.replaceState({editor: 'editor'}, 'Art Machine', '/editor')
   }
 
   onResetEditor() {
@@ -40,14 +42,16 @@ class EditorStore {
 
   onRemixSet(id) {
     this.tracker = this.tracker || Deps.autorun(() => {
-      this.setState({
-        isRemix: true,
-        original: ArtWorks.findOne({_id: this.remixData.get('remixUser')}),
-        stage: 'edit'
-      })
+      if(this.remixData.get('remixUser') !== null) {
+        this.setState({
+          isRemix: true,
+          original: ArtWorks.findOne({_id: this.remixData.get('remixUser')}),
+          stage: 'edit'
+        })
 
-      if(this.original) {
-        this.artBoard.loadAndSave(this.original.canvasData)
+        if(this.original) {
+          this.artBoard.loadAndSave(this.original.imageUrl)
+        }
       }
     })
     this.remixData.set('remixUser', id)

@@ -1,13 +1,17 @@
 .editor {
   height: 100%;
+  canvas {
+    width: 400px;
+    height: 400px;
+  }
 }
 .editor .editor-canvasContainer {
   position: absolute;
   margin-top: 50px;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 320px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   z-index:1
 }
 
@@ -17,6 +21,9 @@
 
 .editor {
   h5 {
+    font-weight: 100;
+    text-align: center;
+    letter-spacing: 3px;
     margin: 0;
     padding: 15px 20px;
     background: rgba(#fff, 0.2);
@@ -53,8 +60,8 @@
 }
 
 .canvasPainter {
-  width: 320px;
-  height: 320px;
+  width: 400px;
+  height: 400px;
   background: rgb(119, 117, 155);
 }
 

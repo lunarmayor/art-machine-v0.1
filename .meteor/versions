@@ -11,6 +11,7 @@ blaze-tools@1.0.3
 boilerplate-generator@1.0.3
 callback-hook@1.0.3
 check@1.0.5
+classcraft:knox@0.9.11
 coffeescript@1.0.6
 cosmos:browserify@0.5.0
 ddp@1.1.0
@@ -44,6 +45,7 @@ meteorhacks:npm@1.4.0
 minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
+momentjs:moment@2.10.6
 mongo@1.1.0
 mongo-livedata@1.0.8
 npm-container@1.1.0

@@ -12,6 +12,8 @@ class ArtBoard {
     this.sprayRadius = 20;
     this.setupMarker(this.toolColor, this.toolSize);
     this.history = []
+    this.historyExists = new ReactiveVar;
+    this.historyExists.set(false)
     this.baseImage = null
   }
 
@@ -21,15 +23,22 @@ class ArtBoard {
     this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mouseleave', this.stopDrawing.bind(this))
     this.canvas.addEventListener('mousemove', this.draw.bind(this))
-    this.onKeyDown = this.restoreHistory.bind(this)
+    this.onKeyDown = this.onRestoreHistory.bind(this)
     window.addEventListener('keydown', this.onKeyDown)
 
   }
 
-  restoreHistory(e) {
+  onRestoreHistory(e) {
     if(e.metaKey && e.keyCode == 90) {
-      if(this.history.length) {
-        this.handleDataURL(this.history.pop())
+      this.restoreHistory()
+    }
+  }
+
+  restoreHistory() {
+    if(this.history.length) {
+      this.handleDataURL(this.history.pop())
+      if(this.history.length == 0) {
+        this.historyExists.set(false)
       }
     }
   }
@@ -146,8 +155,8 @@ class ArtBoard {
 
   setXY(e) {
     let node = this.canvas.parentElement.parentElement;
-    let x = e.clientX - node.offsetLeft + (0.5 * this.width) - 3
-    let y = e.clientY - 112;
+    let x = (e.clientX / 0.74074074074) - (node.offsetLeft / 0.74074074074) + (0.5 * this.width) - 4;
+    let y = (e.clientY / 0.74074074074) - 153;
     [this.currX, this.currY] = [x, y]
   }
 
@@ -163,6 +172,7 @@ class ArtBoard {
   resetWithLastBase() {
     if(this.baseImage) {
       this.history = []
+      this.historyExists.set(false)
       this.handleDataURL(this.baseImage)
     }
   }
@@ -181,6 +191,7 @@ class ArtBoard {
 
   loadAndSave(dataUrl) {
     let img = new Image()
+    img.crossOrigin = ''
     img.onload = () =>
       this.context.drawImage(img, 0, 0)
       this.baseImage = dataUrl
@@ -197,8 +208,9 @@ class ArtBoard {
     reader.onload = (e) => {
       let img = new Image()
       img.onload = () => {
-        this.context.drawImage(img, 0, 0, 320, 320)
+        this.context.drawImage(img, 0, 0, 540, 540)
         this.history = []
+        this.historyExists.set(false)
         this.baseImage = this.canvas.toDataURL()
         EditorActions.clearRemix()
       }
@@ -214,6 +226,7 @@ class ArtBoard {
 
   saveSnapshot() {
     this.history.push(this.canvas.toDataURL())
+    this.historyExists.set(true)
     if(this.history.length > 60) {
       this.history.shift()
     }
@@ -222,7 +235,7 @@ class ArtBoard {
   glitchCanvas(name) {
     this.saveSnapshot()
     this.backContext.drawImage(this.canvas, 0, 0)
-    let imageData = this.backContext.getImageData(0, 0, 320, 320)
+    let imageData = this.backContext.getImageData(0, 0, 540, 540)
     let pixelData = imageData.data
 
     let i = 0;
@@ -459,6 +472,329 @@ class ArtBoard {
   }
   calculateBrightnessBelow(data, i) {
     return this.calculateBrightness(data, i + this.width * 4)
+  }
+
+  sortPixels(m = 0, val = -10000000, sortCol=true, sortRows=true) {
+    let value = val;
+    let row = 0;
+    let column = 0;
+    let mode = m
+
+    this.saveSnapshot()
+    this.backContext.drawImage(this.canvas, 0, 0)
+    let imageData = this.backContext.getImageData(0, 0, 540, 540)
+    let pixelData = imageData.data
+
+    let width = 540;
+    let height = 540;
+    let context = this.context
+    draw()
+
+    function draw() {
+      while(column < width-1) {
+        if(sortCol) {
+          sortColumn();
+        }
+        column++;
+      }
+
+      while(row < height -1) {
+        if(sortRows) {
+          sortRow();
+        }
+        row++;
+      }
+
+      context.putImageData(imageData, 0, 0)
+    }
+
+    function sortRow() {
+      let x = 0;
+      let y = row;
+      let xend = 0;
+
+      while(xend < width-1) {
+        switch(mode) {
+          case 0:
+            x = getFirstNotBlackX(x, y);
+            xend = getNextBlackX(x,y);
+            break;
+          case 1:
+            x = getFirstBrightX(x, y);
+            xend = getNextDarkX(x, y);
+            break;
+          case 2:
+            x = getFirstNotWhiteX(x, y);
+            xend = getNextWhiteX(x, y);
+            break;
+          default:
+            break;
+        }
+
+        if (x < 0) break;
+
+        let sortLength = xend - x;
+        let unsorted = new Array(sortLength)
+        let sorted = new Array(sortLength)
+        for(let i=0; i < sortLength; i++) {
+          unsorted[i] = getPixelValue(x + i, y);
+        }
+
+        sorted = unsorted.sort()
+
+        for(let i=0; i < sortLength; i++) {
+          setPixelValue(x + i, y, sorted[i]);
+        }
+
+        x = xend + 1;
+      }
+    }
+
+    function sortColumn() {
+      let x = column;
+      let y = 0;
+      let yend = 0;
+
+      while(yend < height - 1) {
+        switch(mode) {
+          case 0:
+            y = getFirstNotBlackY(x, y);
+            yend = getNextBlackY(x, y);
+            break;
+          case 1:
+            y = getFirstBrightY(x, y);
+            yend = getNextDarkY(x, y);
+            break;
+          case 2:
+            y = getFirstNotWhiteY(x, y);
+            yend = getNextWhiteY(x, y);
+            break;
+          default:
+            break;
+        }
+
+        if(y < 0) break;
+
+        let sortLength = yend - y;
+
+        let unsorted = new Array(sortLength);
+        let sorted = new Array(sortLength);
+
+        for(let i= 0; i < sortLength; i++) {
+          unsorted[i] = getPixelValue(x, y+i);
+        }
+
+        sorted = unsorted.sort();
+
+        for(let i=0; i < sortLength; i++) {
+          setPixelValue(x, y+i, sorted[i]);
+        }
+
+        y = yend + 1;
+      }
+    }
+
+    function setPixelValue(x, y, val) {
+      var offset = (x + y * width) * 4;
+      var r = (val >> 16) & 255;
+      var g = (val >> 8) & 255;
+      var b = val & 255;
+      pixelData[offset] = r;
+      pixelData[offset+1] = g;
+      pixelData[offset+2] = b;
+    }
+    function getPixelValue(x, y) {
+      var offset = (x + y * width) * 4;
+      var r = pixelData[offset];
+      var g = pixelData[offset + 1];
+      var b = pixelData[offset + 2];
+
+      return ( ((255 << 8) | r) << 8 | g) << 8 | b;
+    }
+    function getPixelBrightness(x, y) {
+      var offset = (x + y * width) * 4;
+      var r = pixelData[offset];
+      var g = pixelData[offset + 1];
+      var b = pixelData[offset + 2];
+      // HSL - lightness:
+      // return (Math.max(r,g,b) + Math.min(r,g,b)) / 2
+      // HSV - value:
+      return Math.max(r,g,b) / 255 * 100;
+    }
+
+    //BLACK
+    function getFirstNotBlackX(_x, _y) {
+      var x = _x;
+      var y = _y;
+
+      while(getPixelValue(x, y) < value) {
+        x++;
+        if(x >= width) return -1;
+      }
+      return x;
+    }
+
+    function getNextBlackX(_x, _y) {
+      var x = _x+1;
+      var y = _y;
+      while(getPixelValue(x, y) > value) {
+        x++;
+        if(x >= width) return width-1;
+      }
+      return x-1;
+    }
+
+    //BRIGHTNESS
+    function getFirstBrightX(_x, _y) {
+      var x = _x;
+      var y = _y;
+      while(getPixelBrightness(x, y) < value) {
+        x++;
+        if(x >= width) return -1;
+      }
+      return x;
+    }
+
+    function getNextDarkX(_x, _y) {
+      var x = _x+1;
+      var y = _y;
+      while(getPixelBrightness(x, y) > value) {
+        x++;
+        if(x >= width) return width-1;
+      }
+      return x-1;
+    }
+
+    //WHITE
+    function getFirstNotWhiteX(_x, _y) {
+      var x = _x;
+      var y = _y;
+      while(getPixelValue(x, y) > whiteValue) {
+        x++;
+        if(x >= width) return -1;
+      }
+      return x;
+    }
+
+    function getNextWhiteX(_x, _y) {
+      var x = _x+1;
+      var y = _y;
+      while(getPixelValue(x, y) < whiteValue) {
+        x++;
+        if(x >= width) return width-1;
+      }
+      return x-1;
+    }
+
+
+    //BLACK
+    function getFirstNotBlackY(_x, _y) {
+      var x = _x;
+      var y = _y;
+      if(y < height) {
+        while(getPixelValue(x, y) < value) {
+          y++;
+          if(y >= height) return -1;
+        }
+      }
+      return y;
+    }
+
+    function getNextBlackY(_x, _y) {
+      var x = _x;
+      var y = _y+1;
+      if (y < height) {
+        while(getPixelValue(x, y) > value) {
+          y++;
+          if(y >= height) return height-1;
+        }
+      }
+      return y-1;
+    }
+
+    //BRIGHTNESS
+    function getFirstBrightY(_x, _y) {
+      var x = _x;
+      var y = _y;
+      if (y < height) {
+        while(getPixelBrightness(x, y) < value) {
+          y++;
+          if(y >= height) return -1;
+        }
+      }
+      return y;
+    }
+
+    function getNextDarkY(_x, _y) {
+      var x = _x;
+      var y = _y+1;
+      if (y < height) {
+        while(getPixelBrightness(x, y) > value) {
+          y++;
+          if(y >= height) return height-1;
+        }
+      }
+      return y-1;
+    }
+
+    //WHITE
+    function getFirstNotWhiteY(_x, _y) {
+      var x = _x;
+      var y = _y;
+      if (y < height) {
+        while(getPixelValue(x, y) > whiteValue) {
+          y++;
+          if(y >= height) return -1;
+        }
+      }
+      return y;
+    }
+
+    function getNextWhiteY(_x, _y) {
+      var x = _x;
+      var y = _y+1;
+      if (y < height) {
+        while(getPixelValue(x, y) < whiteValue) {
+          y++;
+          if(y >= height) return height-1;
+        }
+      }
+      return y-1;
+    }
+  }
+
+  blackHev() {
+    this.sortPixels(0, -11359681)
+  }
+
+  blackMed() {
+    this.sortPixels(0, -9917279)
+  }
+
+  blackLight() {
+    this.sortPixels(0, -8000000)
+  }
+
+  brightLight() {
+    this.sortPixels(1, 80)
+  }
+
+  brightMed() {
+    this.sortPixels(1, 40)
+  }
+
+  brightHev() {
+    this.sortPixels(1, 10)
+  }
+
+  sortColumns() {
+    let intensity = Math.floor(Math.random() * 80)
+    this.sortPixels(1, intensity, true, false)
+  }
+
+  sortRows() {
+    let intensity = Math.floor(Math.random() * 80)
+    this.sortPixels(1, intensity, false, true)
   }
 }
 

@@ -1,11 +1,15 @@
 Meteor.startup(function() {
-  if(false) {
-    Accounts.loginServiceConfiguration.remove({_id: "gMH8Tq8JGqrsNAAbm"})
-    Accounts.loginServiceConfiguration.insert({
-      service     : 'twitter',
-      consumerKey : '3hnWyHvLOFryyVha6viarEOVl',
-      secret      : 'NZvj9P3nH4jEBakgeUv1lrLBhoMK11lLnrWBUAT8xz1gUFCZXB'
-    });
+  if(true) {
+    let accounts = Accounts.loginServiceConfiguration.find({service: 'twitter'}).fetch()
+    if(accounts.length) {
+      let id = accounts[0]._id
+      Accounts.loginServiceConfiguration.remove({_id: id})
+      Accounts.loginServiceConfiguration.insert({
+        service     : 'twitter',
+        consumerKey : '3hnWyHvLOFryyVha6viarEOVl',
+        secret      : 'NZvj9P3nH4jEBakgeUv1lrLBhoMK11lLnrWBUAT8xz1gUFCZXB'
+      });
+    }
   }
 });
 

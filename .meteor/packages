@@ -25,3 +25,6 @@ reactive-var
 reactive-dict
 peppelg:mongo-sum
 meteorhacks:kadira
+classcraft:knox
+momentjs:moment
+random
